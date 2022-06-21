@@ -1,0 +1,129 @@
+﻿@page
+@model Bank.Pages.Customers.CreateCustomerModel
+@{
+    ViewData["Title"] = "Create a customer";
+
+   
+
+}
+
+
+<section id="customers" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        
+        <div class="section-title">
+            <h2>Customers</h2>
+            <p id="customer-info">Create a Customer</p>
+        </div>
+    
+        @*-------------------------------------------------------------------*@
+        
+        <div class="card-body custom-table">
+            <form method="post">
+
+                @*Left column =============================================================*@
+                <div class="row justify-content-around">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Givenname">First name</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.Givenname">
+                            <span asp-validation-for="CustomerView.Givenname" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Surname">Surname</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.Surname">
+                            <span asp-validation-for="CustomerView.Surname" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Gender">Gender</label>
+                            <select class="form-select w-80 mb-3" asp-for="CustomerView.Gender" asp-items="@Model.CustomerView.Genders">
+                            </select>
+                            <span asp-validation-for="CustomerView.Gender" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Streetaddress">Street address</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.Streetaddress">
+                            <span asp-validation-for="CustomerView.Streetaddress" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.City">City</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.City">
+                            <span asp-validation-for="CustomerView.City" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Zipcode">Postal Code</label>
+                            <input class="form-control w-80 mb-4" asp-for="CustomerView.Zipcode">
+                            <span asp-validation-for="CustomerView.Zipcode" style="color:red" class="field-validation-error"></span>
+                        </div>
+                    </div>
+              
+                   @*Right column =============================================================*@
+                   <div class="col-lg-5">
+                       <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Country">Country</label>
+                            <select class="form-select w-80 mb-3" asp-for="CustomerView.Country" asp-items="@Model.CustomerView.Countries" >
+                            </select>
+                            <span asp-validation-for="CustomerView.Country" style="color:red" class="field-validation-error"></span>
+                       </div>
+
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Birthday">Date of birth</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.Birthday">
+                            <span asp-validation-for="CustomerView.Birthday" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.NationalId">Social security number (yymmdd-xxxx)</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.NationalId">
+                            <span asp-validation-for="CustomerView.NationalId" style="color:red" class="field-validation-error"></span>
+                        </div>
+        
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Telephonenumber">Telephonenumber</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.Telephonenumber">
+                            <span asp-validation-for="CustomerView.Telephonenumber" style="color:red" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="my-2 about-text" asp-for="CustomerView.Emailaddress">Email</label>
+                            <input class="form-control w-80 mb-3" asp-for="CustomerView.Emailaddress">
+                            <span asp-validation-for="CustomerView.Emailaddress" style="color:red" class="field-validation-error"></span>
+                        </div>
+                    </div>
+                    </div>
+
+
+                <div class="row-cols-6 offset-1">
+                    <button 
+                        type="submit" 
+                        class="btn get-started-btn text-center button-link"
+                        style="font-size:20px">
+                        <i class="far fa-save"></i> &nbsp; Save
+                    </button>
+
+                    <button class="btn back-btn mx-3 text-center button-link">
+                            <a 
+                                asp-page="/Customers/Customers" >
+                                <i class="fas fa-chevron-circle-left"></i> Back
+                            </a>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+@*Client side validation*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

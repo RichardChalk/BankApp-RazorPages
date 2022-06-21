@@ -1,0 +1,76 @@
+﻿@page
+@model Bank.Pages.Users.EditUserModel
+
+@{
+    ViewData["Title"] = "Edit a user";
+}
+
+
+<section id="customers" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        
+        <div class="section-title">
+            <h2>Users</h2>
+            <p id="customer-info">Edit User</p>
+        </div>
+
+        @*-------------------------------------------------------------------*@
+        
+        <div class="card-body custom-table">
+        <form id="registerForm" method="post">
+            <h2>Edit User.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-floating">
+                <input disabled asp-for="EditUserView.Email" class="form-control mb-3 w-50" autocomplete="username" aria-required="true" />
+                <label asp-for="EditUserView.Email"></label>
+                <span asp-validation-for="EditUserView.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating">
+                <input asp-for="EditUserView.Password" class="form-control mb-3 w-50" autocomplete="new-password" aria-required="true" />
+                <label asp-for="EditUserView.Password"></label>
+                <span asp-validation-for="EditUserView.Password" class="text-danger"></span>
+            </div>
+            
+            <div class="form-floating">
+                <input asp-for="EditUserView.ConfirmPassword" class="form-control mb-3 w-50" autocomplete="new-password" aria-required="true" />
+                <label asp-for="EditUserView.ConfirmPassword"></label>
+                <span asp-validation-for="EditUserView.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <input asp-for="EditUserView.UserRole" type="radio" value="Admin" />
+            <label asp-for="EditUserView.UserRole" style="color:white">Administrator</label> <br />
+
+            <input asp-for="EditUserView.UserRole" type="radio" value="Cashier" class="mb-3" />
+            <label asp-for="EditUserView.UserRole" style="color:white">Cashier</label> <br />
+
+             <div class="row-cols-6 offset-1">
+                <button
+                    id="registerSubmit"
+                    type="submit" 
+                    class="btn get-started-btn text-center button-link"
+                    style="font-size:20px">
+                    <i class="far fa-save"></i> &nbsp; Save
+                </button>
+
+                <button class="btn back-btn mx-3 text-center button-link">
+                        <a 
+                            asp-page="/Users/Users" >
+                            <i class="fas fa-chevron-circle-left"></i> Back
+                        </a>
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+
+@*Client side validation*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

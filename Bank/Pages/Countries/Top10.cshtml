@@ -1,0 +1,77 @@
+﻿@page
+@model Bank.Pages.Countries.Top10Model
+@{
+    ViewData["Title"] = "Top 10 Accounts";
+}
+
+
+<section id="account" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+        <div class="d-flex justify-content-between">
+            <div class="section-title">
+                <h2>Accounts</h2>
+                <p id="account-info">Top 10 Accounts overview: </p>
+                
+            </div>
+            <div>
+                <img style="width:150px" src="@Model.Flag">
+            </div>
+        </div>
+
+
+        <div class="col-12 col-lg-6">
+                <div class="btn back-btn m-3 text-center button-link">
+                <h3 class="m-0px font-w-600">
+                    <a 
+                        asp-page="/Index" >
+                        <i class="fas fa-chevron-circle-left"></i> Back
+                    </a>
+                </h3>
+            </div>
+        </div>
+
+        @*-------------------------------------------------------------------*@
+
+        <div class="content">
+            <div class="table-responsive">
+            <table class="table custom-table table-fixed" id="posts-table">
+                <thead>
+                    <tr>
+                        <th class="st-header" scope="col">
+                            Account Id
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Name
+                        </th>
+
+                         <th class="st-header" scope="col">
+                            Email
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Balance
+                        </th>
+
+                        <th class="st-header" scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var customer in Model.Top10Customers)
+                    {
+                    <tr itemscope="row">
+                        <td>@customer.Id</td>
+                        <td>@customer.Name</td>
+                        <td>@customer.Emailaddress</td>
+                        <td>@customer.Balance kr</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+</section>
+
+
+

@@ -1,0 +1,146 @@
+﻿@page
+@model Bank.Pages.Accounts.AccountModel
+@{
+    ViewData["Title"] = "Account";
+}
+
+
+<section id="account" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Account</h2>
+            <p id="account-info">Account overview: </p>
+            <h5 style="color: white">Account number @Model.AccountProfile.Id</h5>
+            <h5 style="color: #ffc451">Balance: @Model.AccountProfile.Balance kr</h5>
+        </div>
+
+        <div class="col-12 col-lg-6">
+                <div class="btn back-btn m-3 text-center button-link">
+                <h3 class="m-0px font-w-600">
+                    <a 
+                        asp-page="/Customers/Customer" 
+                        asp-route-customerId="@Model.AccountProfile.CustomerId">
+                        <i class="fas fa-chevron-circle-left"></i> Back
+                    </a>
+                </h3>
+            </div>
+        </div>
+
+        @*-------------------------------------------------------------------*@
+
+        <div class="content">
+            <div class="table-responsive">
+            <table class="table custom-table table-fixed" id="posts-table">
+                <thead>
+                    <tr>
+                        <th class="st-header" scope="col">
+                            Transaction Id
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Date
+                        </th>
+
+                         <th class="st-header" scope="col">
+                            Action
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Amount
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Balance
+                        </th>
+
+                        <th class="st-header" scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                   @*Body is empty here.... filled by method "fetchMore"*@
+                </tbody>
+            </table>
+
+           
+
+                @*----------------------------------------------------------*@
+                @*
+                    Om det finns fler än 20 transaktioner ska JavaScript/AJAX 
+                    användas för att ladda in ytterligare 20 transaktioner när man 
+                    trycker på en knapp längst ned i listan. 
+                    Trycker man igen laddas 20 till, och så vidare.
+
+
+                    DÅ BEHÖVS INTE PAGINATION HÄR!!!!
+                *@
+
+                <a 
+                    class="btn get-started-btn text-center button-link" 
+                    href="javascript:fetchMore();">
+                        Load more transactions
+                </a>
+        </div>
+</section>
+
+
+@section Scripts
+{
+    <script>
+        lastTicks = 0;
+        function fetchMore() {
+            fetch("?handler=FetchMore&lastTicks=" + lastTicks + "&accountId=@Model.AccountProfile.Id")
+                .then((response) => response.json())
+                .then((json) => {
+                        lastTicks = json.lastTicks;
+                        json.items.forEach(tableElements);
+            });
+        }
+      
+
+        function tableElements(element) {
+            console.log(element);
+            document.querySelector('#posts-table tbody').innerHTML +=
+                `<tr>
+                <td>${element.transactionId}</td>
+                <td>${new Date(element.date).toLocaleDateString()}</td>
+                <td>${getTransactionType(element.amount)}</td>
+                <td style="color:${getTransactionColour(element.amount)}">${element.amount} kr</td>
+                <td>${element.balance} kr</td>
+                </tr>`;
+        }
+
+          function getTransactionType(amount){
+            let transactionType;
+            if (amount < 0)
+            {
+                transactionType = "Withdrawal";
+            }
+            else
+            {
+                transactionType = "Deposit";
+            }
+            return transactionType;
+        }
+
+        function getTransactionColour(amount){
+            let transactionTypeColour;
+            if (amount < 0)
+            {
+                transactionTypeColour = "Red";
+            }
+            else
+            {
+                transactionTypeColour = "Green";
+            }
+            return transactionTypeColour
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchMore();
+        });
+
+</script>    
+}

@@ -1,0 +1,209 @@
+﻿@page
+@model Bank.Pages.Users.UsersModel
+@{
+    ViewData["Title"] = "Users";
+}
+
+<style>
+#table-page-btn{
+    width: 3rem !important;
+}
+</style>
+
+<section id="customers" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+        @*========================================================================*@
+        @*Used for verification popups*@
+        @*Tempdata disappears after refreshing the page*@
+        <partial name="_Notification"/>
+        @*========================================================================*@
+        
+        
+        <div class="section-title">
+            <h2>Users</h2>
+            <p id="customer-info">User overview</p>
+            <h2>Page @Model.CurrentPage of @Model.PageCount</h2>
+        </div>
+    
+        @*-------------------------------------------------------------------*@
+        
+        <div class="row">
+            <div class="col-12 col-lg-6 d-flex justify-content-left align-self-center">
+                <form method="GET">
+                <div class="form-group">
+                    <div class="search-box">
+                        <button class="btn-search"><i class="fas fa-search"></i></button>
+                        <input type="text" id="searchText" name="searchText" class="input-search"
+                            placeholder="Id, Name or Email...">
+                        <input type="hidden" asp-for="@Model.Id"/>
+                    </div>
+                </div>
+                </form>>
+            </div>
+
+            <div class="col-12 col-lg-6 d-flex justify-content-end align-self-center">
+
+                <div class="btn get-started-btn m-3 text-center button-link">
+                    <a id="register" 
+                        asp-page="/Users/CreateUser">
+                        <i class="fas fa-plus-circle"></i> &nbsp; Create a new User</a>
+                </div>
+            </div>
+        </div>
+
+
+        
+    
+        @*-------------------------------------------------------------------*@
+        <div class="content">
+            <div class="table-responsive">
+            <table class="table custom-table table-fixed">
+                <thead>
+                    <tr>
+                        <th class="st-header" scope="col">
+                            UserId
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="UserId"
+                                asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort User Id ascending"></i>
+                            </a>
+
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="UserId"
+                                asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort User Id descending"></i>
+                            </a>
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            User Name
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="UserName"
+                                asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort User name ascending"></i>
+                            </a>
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="UserName"
+                                asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort User name descending"></i>
+                            </a>
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Email
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="Email" asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort Email ascending"></i>
+                            </a>
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="Email" asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort Email descending"></i>
+                            </a>
+                        </th>
+
+                        @*Couldnt get sorting by "Role"" to work!!*@
+                        <th class="st-header" scope="col">
+                            Role
+@*                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="Role" asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort Role ascending"></i>
+                            </a>
+                            <a class="btn p-0" asp-page="/Users/Users" asp-route-sortColumn="Role" asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort Role descending"></i>
+                            </a>
+*@                        </th>
+
+
+
+                        <th class="st-header" scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                    <tr itemscope="row">
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@user.Role</td>
+                        <td><a asp-page="/Users/EditUser" asp-route-userId="@user.Id" class="more"><i class="far fa-edit"></i> Edit</a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            @*----------------------------------------------------------*@
+            @*Pagination*@
+            @*Pagination*@
+            @*Pagination*@
+            @*Pagination*@
+
+            @{
+                //Not the solution I wanted but best I could do...
+                //Helps decide how many page buttons to show
+                int MinusCP = 4;
+                int PlusCP = 5;
+            }
+
+            <div class="d-flex justify-content-center">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            @*Previous button*@
+                            @if (Model.CurrentPage != 1)
+                            {
+                            <a class="btn btn-secondary" 
+                                asp-page="/Users/Users" 
+                                asp-route-searchWord="@Model.SearchText"
+                                asp-route-customerId="@Model.Id" 
+                                asp-route-sortColumn="@Model.SortColumn"
+                                asp-route-sortOrder="@Model.SortOrder" 
+                                asp-route-pageno="@(Model.CurrentPage - 1)">Prev
+                            </a>
+                            }
+                        </td>
+
+                        @*Page buttons*@
+                        <td>
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                @if (!(i > Model.CurrentPage + MinusCP) && (i > Model.CurrentPage - PlusCP))
+                                {
+                                    string pageColour="btn-secondary" ; 
+                                    if (i==@Model.CurrentPage ) 
+                                    { 
+                                        pageColour="btn-primary"; 
+                                    } 
+                                    <a
+                                        id="table-page-btn"
+                                        class="btn @pageColour my-1" 
+                                        asp-page="/Users/Users" 
+                                        asp-route-searchWord="@Model.SearchText"
+                                        asp-route-customerId="@Model.Id" 
+                                        asp-route-sortColumn="@Model.SortColumn"
+                                        asp-route-sortOrder="@Model.SortOrder" 
+                                        asp-route-pageno="@i">@i
+                                    </a>  
+                                }
+                            }
+                        </td>
+
+                        @*Next button*@
+                        <td>
+                            @if (Model.CurrentPage != Model.PageCount)
+                            {
+                            <a class="btn btn-secondary" 
+                                asp-route-searchText="@Model.SearchText" 
+                                asp-page="/Users/Users"
+                                asp-route-customerId="@Model.Id" 
+                                asp-route-sortColumn="@Model.SortColumn"
+                                asp-route-sortOrder="@Model.SortOrder" 
+                                asp-route-pageno="@(Model.CurrentPage + 1)">Next
+                            </a>
+                            }
+                        </td>
+                    </tr>
+
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div>
+            </div>
+</section>

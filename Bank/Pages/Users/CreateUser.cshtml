@@ -1,0 +1,76 @@
+﻿@page
+@model Bank.Pages.Users.CreateUserModel
+
+@{
+    ViewData["Title"] = "Create a user";
+}
+
+
+<section id="customers" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        
+        <div class="section-title">
+            <h2>Users</h2>
+            <p id="customer-info">Create a new User</p>
+        </div>
+
+        @*-------------------------------------------------------------------*@
+        
+        <div class="card-body custom-table">
+        <form id="registerForm" method="post">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-floating">
+                <input asp-for="UserView.Email" class="form-control mb-3 w-50" autocomplete="username" aria-required="true" />
+                <label asp-for="UserView.Email"></label>
+                <span asp-validation-for="UserView.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating">
+                <input asp-for="UserView.Password" class="form-control mb-3 w-50" autocomplete="new-password" aria-required="true" />
+                <label asp-for="UserView.Password"></label>
+                <span asp-validation-for="UserView.Password" class="text-danger"></span>
+            </div>
+            
+            <div class="form-floating">
+                <input asp-for="UserView.ConfirmPassword" class="form-control mb-3 w-50" autocomplete="new-password" aria-required="true" />
+                <label asp-for="UserView.ConfirmPassword"></label>
+                <span asp-validation-for="UserView.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <input asp-for="UserView.UserRole" type="radio" value="Admin" />
+            <label asp-for="UserView.UserRole" style="color:white">Administrator</label> <br />
+
+            <input asp-for="UserView.UserRole" type="radio" value="Cashier" class="mb-3" />
+            <label asp-for="UserView.UserRole" style="color:white">Cashier</label> <br />
+
+             <div class="row-cols-6 offset-1">
+                <button
+                    id="registerSubmit"
+                    type="submit" 
+                    class="btn get-started-btn text-center button-link"
+                    style="font-size:20px">
+                    <i class="far fa-save"></i> &nbsp; Save
+                </button>
+
+                <button class="btn back-btn mx-3 text-center button-link">
+                        <a 
+                            asp-page="/Users/Users" >
+                            <i class="fas fa-chevron-circle-left"></i> Back
+                        </a>
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+
+@*Client side validation*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

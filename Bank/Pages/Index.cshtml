@@ -1,0 +1,130 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<!-- ======= Hero Section ======= -->
+  
+<section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+            <div class="col-xl-6 col-lg-8">
+                <h1>Welcome to HandelsSparBanken<span>.</span></h1>
+                <h2>Talented bankers ready to boost your portfolio</h2>
+            </div>
+        </div>
+
+        @*Flags =================================================================================*@  
+        <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+
+            
+            @*SE*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <a 
+                    asp-page="/Countries/Top10"
+                    asp-route-countryId="SE" 
+                    >
+                        <img src="~/assets/img/flags/sweden-flag-png-large.png" class="w-100 h-100">
+                    </a>
+                </div>
+            </div>
+        
+            @*FI*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <a 
+                    asp-page="/Countries/Top10"
+                    asp-route-countryId="FI" 
+                    >
+                        <img src="~/assets/img/flags/finland-flag-png-large.png" class="w-100 h-100">
+                    </a>
+                </div>
+            </div>
+        
+            @*DK*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <a 
+                    asp-page="/Countries/Top10"
+                    asp-route-countryId="DK" 
+                    >
+                        <img src="~/assets/img/flags/denmark-flag-png-large.png" class="w-100 h-100">
+                    </a>
+                </div>
+            </div>
+
+            @*NO*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <a 
+                    asp-page="/Countries/Top10"
+                    asp-route-countryId="NO" 
+                    >
+                        <img src="~/assets/img/flags/norway-flag-png-large.png" class="w-100 h-100">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+
+            @*SWEDEN =================================================================================*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <i class="ri-user-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Clients <br /> @Model.ViewModelSE.NumberOfClientsSE</h3>
+                    <i class="ri-bar-chart-box-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Accounts <br /> @Model.ViewModelSE.NumberOfAccountsSE</h3>
+                     <i class="ri-money-dollar-circle-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Capital <br /> @string.Format("{0:n0}",@Model.ViewModelSE.TotalAccountValueSE) kr</h3>
+                </div>
+            </div>
+        
+            @*FINLAND =================================================================================*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <i class="ri-user-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Clients <br /> @Model.ViewModelFI.NumberOfClientsFI</h3>
+                    <i class="ri-bar-chart-box-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Accounts <br /> @Model.ViewModelFI.NumberOfAccountsFI</h3>
+                     <i class="ri-money-dollar-circle-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Capital <br /> @string.Format("{0:n0}",@Model.ViewModelFI.TotalAccountValueFI) kr</h3>
+                </div>
+            </div>
+        
+            @*DENMARK =================================================================================*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <i class="ri-user-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Clients <br /> @Model.ViewModelDK.NumberOfClientsDK</h3>
+                    <i class="ri-bar-chart-box-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Accounts <br /> @Model.ViewModelDK.NumberOfAccountsDK</h3>
+                     <i class="ri-money-dollar-circle-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Capital <br /> @string.Format("{0:n0}",@Model.ViewModelDK.TotalAccountValueDK) kr</h3>
+                </div>
+            </div>
+
+            @*NORWAY =================================================================================*@
+            <div class="col-xl-2 col-md-3">
+                <div class="icon-box">
+                    <i class="ri-user-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Clients <br /> @Model.ViewModelNO.NumberOfClientsNO</h3>
+                    <i class="ri-bar-chart-box-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Accounts <br /> @Model.ViewModelNO.NumberOfAccountsNO</h3>
+                     <i class="ri-money-dollar-circle-line"></i>
+                    <h3 class="mt-0 mb-3" style="color:white">Capital <br /> @string.Format("{0:n0}",@Model.ViewModelNO.TotalAccountValueNO) kr</h3>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!-- End Hero -->

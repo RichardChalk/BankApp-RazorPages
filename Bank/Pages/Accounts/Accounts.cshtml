@@ -1,0 +1,175 @@
+﻿@page
+@model Bank.Pages.Accounts.AccountsModel
+@{
+    ViewData["Title"] = "Accounts";
+
+    //Not the solution I wanted but best I could do...
+    //Helps decide how many page buttons to show
+    int MinusCP = 4;
+    int PlusCP = 5;
+
+}
+
+<section id="accounts" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        
+        <div class="section-title">
+            <h2>Accounts</h2>
+            <p id="account-info">Accounts overview</p>
+            <h2>Page @Model.CurrentPage of @Model.PageCount</h2>
+        </div>
+    
+        @*-------------------------------------------------------------------*@
+        
+        <form method="GET">
+        <div class="form-group">
+            <div class="search-box">
+                <button class="btn-search"><i class="fas fa-search"></i></button>
+                <input type="text" id="searchText" name="searchText" class="input-search"
+                    placeholder="Search...">
+            </div>
+        </div>
+        </form>>
+    
+        @*-------------------------------------------------------------------*@
+        <div class="content">
+            <div class="table-responsive">
+            <table class="table custom-table table-fixed">
+                <thead>
+                    <tr>
+                        <th class="st-header" scope="col">
+                            AccountId
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="AccountId"
+                                asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort Account Id ascending"></i>
+                            </a>
+
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="AccountId"
+                                asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort Account Id descending"></i>
+                            </a>
+                        </th>
+
+                        
+                        <th class="st-header" scope="col">
+                            Frequency
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="Frequency"
+                                asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort Frequency ascending"></i>
+                            </a>
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="Frequency"
+                                asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort Frequency descending"></i>
+                            </a>
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Date Created
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="Created" asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort Date created ascending"></i>
+                            </a>
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="Created" asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort Date created descending"></i>
+                            </a>
+                        </th>
+
+                        <th class="st-header" scope="col">
+                            Balance
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="Balance" asp-route-sortOrder="asc">
+                                <i class="fa-solid fa-angle-up" title="Sort Balance ascending"></i>
+                            </a>
+                            <a class="btn p-0" asp-page="/Accounts/Accounts" asp-route-sortColumn="Balance" asp-route-sortOrder="desc">
+                                <i class="fa-solid fa-angle-down" title="Sort Balance descending"></i>
+                            </a>
+                        </th>
+
+                        <th class="st-header" scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var account in Model.Accounts)
+                    {
+                    <tr itemscope="row">
+                        <td>@account.Id</td>
+                        <td>@account.Frequency</td>
+                        <td>@account.Created.ToShortDateString()</td>
+                        <td>@account.Balance kr</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            @*----------------------------------------------------------*@
+            @*Pagination*@
+            @*Pagination*@
+            @*Pagination*@
+            @*Pagination*@
+
+            <div class="d-flex justify-content-center">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            @*Previous button*@
+                            @if (Model.CurrentPage != 1)
+                            {
+                            <a class="btn btn-secondary" 
+                                asp-page="/Accounts/Accounts" 
+                                asp-route-searchWord="@Model.SearchText"
+                                asp-route-accountId="@Model.Id" 
+                                asp-route-sortColumn="@Model.SortColumn"
+                                asp-route-sortOrder="@Model.SortOrder" 
+                                asp-route-pageno="@(Model.CurrentPage - 1)">Prev
+                            </a>
+                            }
+                        </td>
+
+                        @*Page buttons*@
+                        <td>
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                @if (!(i > Model.CurrentPage + MinusCP) && (i > Model.CurrentPage - PlusCP))
+                                {
+                                    string pageColour="btn-secondary" ; 
+                                    if (i==@Model.CurrentPage ) 
+                                    { 
+                                        pageColour="btn-primary"; 
+                                    } 
+                                    <a
+                                        id="table-page-btn"
+                                        class="btn @pageColour my-1" 
+                                        asp-page="/Accounts/Accounts" 
+                                        asp-route-searchWord="@Model.SearchText"
+                                        asp-route-accountId="@Model.Id" 
+                                        asp-route-sortColumn="@Model.SortColumn"
+                                        asp-route-sortOrder="@Model.SortOrder" 
+                                        asp-route-pageno="@i">@i
+                                    </a>  
+                                }
+                            }
+                        </td>
+
+                        @*Next button*@
+                        <td>
+                            @if (Model.CurrentPage != Model.PageCount)
+                            {
+                            <a class="btn btn-secondary" 
+                                asp-route-searchText="@Model.SearchText" 
+                                asp-page="/Accounts/Accounts"
+                                asp-route-accountId="@Model.Id" 
+                                asp-route-sortColumn="@Model.SortColumn"
+                                asp-route-sortOrder="@Model.SortOrder" 
+                                asp-route-pageno="@(Model.CurrentPage + 1)">Next
+                            </a>
+                            }
+                        </td>
+                    </tr>
+
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div>
+            </div>
+</section>

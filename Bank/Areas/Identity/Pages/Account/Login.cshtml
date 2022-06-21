@@ -1,0 +1,74 @@
+﻿@page
+@model LoginModel
+
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+
+
+<section id="customers" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        
+        <div class="section-title">
+            <h2>Users</h2>
+            <p id="customer-info">Login</p>
+        </div>
+
+        @*-------------------------------------------------------------------*@
+        
+        <div class="card-body custom-table">
+        <form id="registerForm" method="post">
+            <h2>Use email and password to log in.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-floating">
+                <input asp-for="Input.Email" class="form-control mb-3 w-50" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.Email" class="form-label"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control mb-3 w-50" autocomplete="current-password" aria-required="true" />
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            
+            <div class="checkbox">
+                <label asp-for="Input.RememberMe" class="form-label">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </label>
+            </div>
+
+
+             <div class="row-cols-6 offset-1">
+                <button
+                    id="registerSubmit"
+                    type="submit" 
+                    class="btn get-started-btn text-center button-link"
+                    style="font-size:20px">
+                    <i class="fas fa-arrow-circle-right"></i> &nbsp; Login
+                </button>
+
+                <button class="btn back-btn mx-3 text-center button-link">
+                        <a 
+                            asp-page="/Index" >
+                            <i class="fas fa-chevron-circle-left"></i> &nbsp; Back
+                        </a>
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+
+@*Client side validation*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
