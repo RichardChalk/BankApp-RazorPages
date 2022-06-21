@@ -5,10 +5,10 @@ WEB APP====================================
 
 AZURE: https://bankwebapprichardchalk.azurewebsites.net/
 
-ADMIN: Can edit and see only system users
-username: richard.chalk@admin.se
+ADMIN: Can edit and see only system users \
+username: richard.chalk@admin.se \
 pw: Abc123#
 
-CASHIER: Can Work with both customers and accounts
-username: richard.chalk@cashier.se
+CASHIER: Can Work with both customers and accounts \
+username: richard.chalk@cashier.se\
 pw: Abc123#
